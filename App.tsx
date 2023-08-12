@@ -1,20 +1,21 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet} from 'react-native';
+import { NativeBaseProvider } from 'native-base'
+import ChatScreen from './src/screens/main/ChatScreen';
+import theme from './src/theme';
+import NotificationScreen from './src/screens/main/NotificationScreen';
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NativeBaseProvider theme={theme}>
+      <StatusBar style='auto'/>
+
+      {/* <ChatScreen/> */}
+      <NotificationScreen/>
+    </NativeBaseProvider>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+  
 });
