@@ -4,6 +4,7 @@ import { NativeBaseProvider } from 'native-base'
 import ChatScreen from './src/screens/main/ChatScreen';
 import theme from './src/theme';
 import NotificationScreen from './src/screens/main/NotificationScreen';
+import FindBabySitterScreen from './src/screens/main/FindBabySitterScreen';
 
 export default function App() {
   return (
@@ -11,7 +12,8 @@ export default function App() {
       <StatusBar style='auto'/>
 
       {/* <ChatScreen/> */}
-      <NotificationScreen/>
+      {/* <NotificationScreen/> */}
+      <FindBabySitterScreen/>
     </NativeBaseProvider>
   );
 }
