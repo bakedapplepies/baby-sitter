@@ -11,9 +11,9 @@ export default function App() {
     <NativeBaseProvider theme={theme}>
       <StatusBar style='auto'/>
 
-      {/* <ChatScreen/> */}
+      <ChatScreen/>
       {/* <NotificationScreen/> */}
-      <FindBabySitterScreen/>
+      {/* <FindBabySitterScreen/> */}
     </NativeBaseProvider>
   );
 }

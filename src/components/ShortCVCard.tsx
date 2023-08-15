@@ -11,7 +11,7 @@ import {
 
 const ShortCVCard = () => {
   return (
-    <VStack bgColor="muted.100" w={385} borderRadius={8} mb={5} p={3} space={1.5}>
+    <VStack bgColor="muted.100" w={370} borderRadius={8} mb={5} p={3} space={1.5}>
       <HStack alignItems="center">
         <Avatar source={require("../../assets/Avatar.png")} size="lg" mr={3} flex={0} />
         <VStack flex={1}>

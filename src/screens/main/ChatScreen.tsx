@@ -77,33 +77,35 @@ const defaultUserID: string = "123";
 const ChatScreen = () => {
   const renderMessage = (item: MessageType) => {
     if (item.sender_id === defaultUserID) {
-      return <VStack safeArea maxW={280} flex={0} bgColor="red.400">
-        <Box bgColor="primary.600" p={2.5} borderRadius={8} borderBottomRightRadius={0} flex={0}>
-          <Text color="white" fontSize={13} textAlign="right" highlight width={150} onLayout={(event) => {
-            console.log(event.nativeEvent.layout.width);
-          }}>
-            {item.content}
-          </Text>
-        </Box>
-        {/* <Box bgColor="blue.100">
+      return (
+        <VStack flex={0} maxW={280} alignSelf="flex-end" mt={3}>
+          <Box bgColor="primary.600" p={2.5} borderRadius={8} borderBottomRightRadius={0}>
+            <Text color="white" fontSize={13} textAlign="right" onLayout={(event) => {
+              console.log(event.nativeEvent.layout.width);
+            }}>
+              {item.content}
+            </Text>
+          </Box>
+          <Box>
           <Text fontSize={10} color="muted.500" textAlign="right">
             {item.time_sent}
           </Text>
-        </Box> */}
-      </VStack>;
+        </Box>
+        </VStack>
+      );
     }
     else {
-      return <VStack safeArea maxW={280}>
+      return <VStack maxW={280} alignSelf="flex-start" mt={3}>
         <Box bgColor="muted.100" p={2.5} borderRadius={8} borderBottomLeftRadius={0}>
           <Text fontSize={13}>
             {item.content}
           </Text>
         </Box>
-        {/* <Box bgColor="blue.100">
+        <Box>
           <Text fontSize={10} color="muted.500">
             {item.time_sent}
           </Text>
-        </Box> */}
+        </Box>
       </VStack>;
     }
   };
@@ -111,14 +113,14 @@ const ChatScreen = () => {
   return (
     <>
       {/* Top bar */}
-      <HStack safeArea alignItems="center" marginY={2}>
+      <HStack safeArea alignItems="center" my={2} mb={5}>
         <IconButton
           icon={<Image
             source={require("../../../assets/arrow-left.png")}
             alt="back_arrow"
           />}
           _icon={{
-            size: 5
+            size: 5,
           }}
           borderRadius="full"
           size={8}
@@ -146,11 +148,11 @@ const ChatScreen = () => {
       <Center bgColor="white" flex={1}>
         <FlatList
           data={ChatData}
-          renderItem={({item}) => renderMessage(item)}
-          bgColor="red.100"
+          renderItem={({ item }) => renderMessage(item)}
+          width={365}
         />
 
-        <MessageInput/>
+        <MessageInput />
       </Center>
     </>
   )
