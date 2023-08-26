@@ -16,7 +16,8 @@ import {
   Box,
 } from 'native-base'
 import React from 'react'
-import { ChatData, MessageType } from '../../data/chat';
+import { ChatData, MessageType } from '../../../data/chat';
+import { Babysitter } from '../../../types';
 
 
 const MessageInput = () => {
@@ -72,10 +73,11 @@ const MessageInput = () => {
   );
 }
 
-const defaultUserID: string = "123";
+const defaultBabysitterID: number = 0;
 
 const ChatScreen = () => {
   const renderMessage = (item: MessageType) => {
+<<<<<<< HEAD:src/screens/main/ChatScreen.tsx
     if (item.sender_id === defaultUserID) {
       return (
         <VStack flex={0} maxW={280} alignSelf="flex-end" mt={3}>
@@ -87,6 +89,18 @@ const ChatScreen = () => {
             </Text>
           </Box>
           <Box>
+=======
+    if (typeof item.sender === "Babysitter") {
+      return <VStack safeArea maxW={280} flex={0} bgColor="red.400">
+        <Box bgColor="primary.600" p={2.5} borderRadius={8} borderBottomRightRadius={0} flex={0}>
+          <Text color="white" fontSize={13} textAlign="right" highlight width={150} onLayout={(event) => {
+            console.log(event.nativeEvent.layout.width);
+          }}>
+            {item.content}
+          </Text>
+        </Box>
+        {/* <Box bgColor="blue.100">
+>>>>>>> navigator:src/screens/main/chat/ChatScreen.tsx
           <Text fontSize={10} color="muted.500" textAlign="right">
             {item.time_sent}
           </Text>
