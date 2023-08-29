@@ -5,19 +5,13 @@ import ChatScreen from './src/screens/main/chat/ChatScreen';
 import theme from './src/theme';
 import NotificationScreen from './src/screens/main/NotificationScreen';
 import FindBabySitterScreen from './src/screens/main/FindBabySitterScreen';
+import ChatOverview from './src/screens/main/chat/ChatOverview';
+import Root from './src/navigation/Root';
 
 export default function App() {
   return (
     <NativeBaseProvider theme={theme}>
-      <StatusBar style='auto'/>
-
-      <ChatScreen/>
-      {/* <NotificationScreen/> */}
-      {/* <FindBabySitterScreen/> */}
+      <Root/>
     </NativeBaseProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  
-});

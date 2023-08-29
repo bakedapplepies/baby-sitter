@@ -19,7 +19,7 @@ const renderNotificationCard = () => {
 
 const NotificationScreen = () => {
   return (
-    <>
+    <Center bg="white" flex={1}>
       {/* Top bar */}
       <HStack safeArea alignItems="center" my={5}>
         <Box flex={1}>
@@ -51,7 +51,7 @@ const NotificationScreen = () => {
         renderItem={() => renderNotificationCard()}
         mx={3}
       />
-    </>
+    </Center>
   )
 }
 

@@ -15,12 +15,13 @@ import {
   Divider,
   Box,
 } from 'native-base'
-import React from 'react'
+import React, { useContext } from 'react'
 import { ChatData, MessageType } from '../../../data/chat';
-import { Babysitter } from '../../../types';
+import Context from '../../../store/context/context';
 
 
 const MessageInput = () => {
+  const context = useContext(Context);
   return (
     <Input
       m={4}
@@ -36,7 +37,7 @@ const MessageInput = () => {
         <HStack space={2} mx={1} alignItems="center" pl={1.5}>
           <IconButton
             icon={<Image
-              source={require("../../../assets/attach-circle.png")}
+              source={require("../../../../assets/attach-circle.png")}
               alt="attach"
               size={5}
               tintColor="muted.500"
@@ -45,7 +46,7 @@ const MessageInput = () => {
           />
           <IconButton
             icon={<Image
-              source={require("../../../assets/camera.png")}
+              source={require("../../../../assets/camera.png")}
               alt="camera"
               size={5}
               tintColor="muted.500"
@@ -59,7 +60,7 @@ const MessageInput = () => {
       InputRightElement={
         <IconButton
           icon={<Image
-            source={require("../../../assets/send-arrow.png")}
+            source={require("../../../../assets/send-arrow.png")}
             alt="send_arrow"
             tintColor="white"
             size={6}
@@ -77,36 +78,19 @@ const defaultBabysitterID: number = 0;
 
 const ChatScreen = () => {
   const renderMessage = (item: MessageType) => {
-<<<<<<< HEAD:src/screens/main/ChatScreen.tsx
-    if (item.sender_id === defaultUserID) {
-      return (
-        <VStack flex={0} maxW={280} alignSelf="flex-end" mt={3}>
-          <Box bgColor="primary.600" p={2.5} borderRadius={8} borderBottomRightRadius={0}>
-            <Text color="white" fontSize={13} textAlign="right" onLayout={(event) => {
-              console.log(event.nativeEvent.layout.width);
-            }}>
-              {item.content}
-            </Text>
-          </Box>
-          <Box>
-=======
-    if (typeof item.sender === "Babysitter") {
-      return <VStack safeArea maxW={280} flex={0} bgColor="red.400">
-        <Box bgColor="primary.600" p={2.5} borderRadius={8} borderBottomRightRadius={0} flex={0}>
-          <Text color="white" fontSize={13} textAlign="right" highlight width={150} onLayout={(event) => {
-            console.log(event.nativeEvent.layout.width);
-          }}>
+    if (item.sender.id === defaultBabysitterID) {
+      return <VStack flex={0} maxW={280} alignSelf="flex-end" mt={3}>
+        <Box bgColor="primary.600" p={2.5} borderRadius={8} borderBottomRightRadius={0}>
+          <Text color="white" fontSize={13} textAlign="right">
             {item.content}
           </Text>
         </Box>
-        {/* <Box bgColor="blue.100">
->>>>>>> navigator:src/screens/main/chat/ChatScreen.tsx
+        <Box>
           <Text fontSize={10} color="muted.500" textAlign="right">
             {item.time_sent}
           </Text>
         </Box>
-        </VStack>
-      );
+      </VStack>
     }
     else {
       return <VStack maxW={280} alignSelf="flex-start" mt={3}>
@@ -125,23 +109,23 @@ const ChatScreen = () => {
   };
 
   return (
-    <>
+    <Box flex={1} bg="white">
       {/* Top bar */}
-      <HStack safeArea alignItems="center" my={2} mb={5}>
+      <HStack safeArea alignItems="center" marginY={2} bg="white">
         <IconButton
           icon={<Image
-            source={require("../../../assets/arrow-left.png")}
+            source={require("../../../../assets/arrow-left.png")}
             alt="back_arrow"
           />}
           _icon={{
-            size: 5,
+            size: 5
           }}
           borderRadius="full"
           size={8}
           marginX={2}
         />
         <Avatar
-          source={require("../../../assets/Avatar.png")}
+          source={require("../../../../assets/Avatar.png")}
         />
 
         <VStack marginLeft={2}>
@@ -168,10 +152,8 @@ const ChatScreen = () => {
 
         <MessageInput />
       </Center>
-    </>
+    </Box>
   )
 }
 
 export default ChatScreen;
-
-const styles = StyleSheet.create({})

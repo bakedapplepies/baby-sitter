@@ -1,4 +1,4 @@
-import { Babysitter, User } from "../types";
+import { Babysitter, User } from "../types/index";
 
 export type MessageType = {
   sender: Babysitter | User;
@@ -7,8 +7,8 @@ export type MessageType = {
 }
 
 let defaultUser: User = {
-  id: 0,
-  name: "Miracle Dorwart",
+  id: 1,
+  name: "John",
   pfp: require("../../assets/Avatar.png")
 };
 
