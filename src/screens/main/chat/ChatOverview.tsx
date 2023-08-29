@@ -1,4 +1,4 @@
-import { createNativeStackNavigator, NativeStackScreenProps } from '@react-navigation/native-stack';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import {
   HStack,
   Input,
@@ -10,13 +10,12 @@ import {
   Text,
 } from 'native-base';
 import React from 'react'
-import ChatScreen from './ChatScreen';
 import { TouchableOpacity } from 'react-native';
-import { NavigationContainer, useNavigation } from '@react-navigation/native';
-import { BottomTabParams } from '../../../navigation/config';
+import { useNavigation } from '@react-navigation/native';
+import { RootStackParams } from '../../../navigation/config';
 
 
-type NavigationProps = NativeStackScreenProps<ChatStackParams>;
+type NavigationProps = NativeStackScreenProps<RootStackParams>;
 
 const ChatOverview = () => {
   const navigation = useNavigation<NavigationProps["navigation"]>();
@@ -69,24 +68,11 @@ const ChatOverview = () => {
       <FlatList
         data={users}
         renderItem={ChatOverviewCard}
-        my={6}
+        mt={6}
       />
 
     </Center>
   )
 }
 
-type ChatStackParams = {
-  Overview: undefined;
-  Chatting: undefined;
-} & BottomTabParams;
-
-const ChatStack = createNativeStackNavigator();
-const ChatStackScreen = () => {
-  return <ChatStack.Navigator initialRouteName="Overview" screenOptions={{headerShown: false}}>
-    <ChatStack.Screen name="Overview" component={ChatOverview} />
-    <ChatStack.Screen name="Chatting" component={ChatScreen} />
-  </ChatStack.Navigator>
-}
-
-export default ChatStackScreen;
+export default ChatOverview;

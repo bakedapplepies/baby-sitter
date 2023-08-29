@@ -1,7 +1,4 @@
 import {
-  StyleSheet,
-} from 'react-native'
-import {
   Center,
   Text,
   FlatList,
@@ -15,13 +12,15 @@ import {
   Divider,
   Box,
 } from 'native-base'
-import React, { useContext } from 'react'
 import { ChatData, MessageType } from '../../../data/chat';
-import Context from '../../../store/context/context';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { useNavigation } from '@react-navigation/native';
 
+type NavigationProps = NativeStackScreenProps<{
+  ChatOverview: undefined;
+}>;
 
 const MessageInput = () => {
-  const context = useContext(Context);
   return (
     <Input
       m={4}
@@ -74,11 +73,11 @@ const MessageInput = () => {
   );
 }
 
-const defaultBabysitterID: number = 0;
-
 const ChatScreen = () => {
+  const navigation = useNavigation<NavigationProps["navigation"]>();
+
   const renderMessage = (item: MessageType) => {
-    if (item.sender.id === defaultBabysitterID) {
+    if (item.sender.id[0] === 'u') {
       return <VStack flex={0} maxW={280} alignSelf="flex-end" mt={3}>
         <Box bgColor="primary.600" p={2.5} borderRadius={8} borderBottomRightRadius={0}>
           <Text color="white" fontSize={13} textAlign="right">
@@ -123,6 +122,9 @@ const ChatScreen = () => {
           borderRadius="full"
           size={8}
           marginX={2}
+          onPress={() => {
+            navigation.goBack();  // to ChatOverview
+          }}
         />
         <Avatar
           source={require("../../../../assets/Avatar.png")}

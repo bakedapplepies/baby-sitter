@@ -1,13 +1,13 @@
 import { ImageSourcePropType } from "react-native";
 
 export type Babysitter = {
-  id: number;
+  id: string;
   name: string;
   pfp: ImageSourcePropType;
 }
 
 export type User = {
-  id: number;
+  id: string;
   name: string;
   pfp: ImageSourcePropType;
 }

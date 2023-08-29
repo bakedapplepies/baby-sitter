@@ -1,4 +1,3 @@
-import { StyleSheet } from 'react-native'
 import React from 'react'
 import {
   Avatar,
@@ -7,7 +6,6 @@ import {
   Text,
   Image,
 } from 'native-base'
-
 
 const ShortCVCard = () => {
   return (
@@ -53,7 +51,5 @@ const ShortCVCard = () => {
     </VStack>
   )
 }
-
-const styles = StyleSheet.create({})
 
 export default ShortCVCard

@@ -7,13 +7,13 @@ export type MessageType = {
 }
 
 let defaultUser: User = {
-  id: 1,
-  name: "John",
+  id: "u0",
+  name: "Paityn George",
   pfp: require("../../assets/Avatar.png")
 };
 
 let defaultBabysitter: Babysitter = {
-  id: 0,
+  id: "b0",
   name: "Miracle Dorwart",
   pfp: require("../../assets/Avatar.png")
 };

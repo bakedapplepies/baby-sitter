@@ -1,4 +1,3 @@
-import { StyleSheet } from 'react-native'
 import React from 'react'
 import {
   Input,
@@ -16,7 +15,7 @@ const renderShortCVCard = () => {
 
 const FindBabySitterScreen = () => {
   return (
-    <Center safeArea flex={1}>
+    <Center safeArea flex={1} bg="white">
       <Input
         w="92%"
         mt={5}
@@ -50,9 +49,7 @@ const FindBabySitterScreen = () => {
         renderItem={() => renderShortCVCard()}
         mt={6}
         w="100%"
-        // bgColor="red.100"
         contentContainerStyle={{
-          // paddingHorizontal: 10,
           alignItems: "center"
         }}
       />
@@ -60,6 +57,4 @@ const FindBabySitterScreen = () => {
   )
 }
 
-const styles = StyleSheet.create({})
-
-export default FindBabySitterScreen
+export default FindBabySitterScreen;

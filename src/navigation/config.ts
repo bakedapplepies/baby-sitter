@@ -1,5 +1,6 @@
 export type RootStackParams = {
   BottomTab: undefined;
+  Chatting: undefined;
 }
 
 export type BottomTabParams = {

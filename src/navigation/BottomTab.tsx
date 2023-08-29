@@ -3,6 +3,8 @@ import React from 'react'
 import NotificationScreen from '../screens/main/NotificationScreen';
 import ChatStackScreen from '../screens/main/chat/ChatOverview';
 import { Image, useTheme } from 'native-base';
+import ChatOverview from '../screens/main/chat/ChatOverview';
+import FindBabySitterScreen from '../screens/main/FindBabySitterScreen';
 
 
 const TabNames = {
@@ -23,7 +25,7 @@ const BottomTab = () => {
       headerShown: false,
       tabBarActiveTintColor: mainColor,
       tabBarStyle: {
-        height: 60
+        height: 60,
       },
       tabBarLabelStyle: {
         marginBottom: 6
@@ -42,7 +44,7 @@ const BottomTab = () => {
           ),
           tabBarLabel: "Tìm kiếm"
         }}
-        component={NotificationScreen}
+        component={FindBabySitterScreen}
       />
 
       <Tab.Screen
@@ -58,7 +60,7 @@ const BottomTab = () => {
           ),
           tabBarLabel: "Tin nhắn"
         }}
-        component={ChatStackScreen}
+        component={ChatOverview}
       />
       
       <Tab.Screen
