@@ -1,11 +1,14 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { StatusBar } from 'expo-status-bar';
-import React, { createContext } from 'react'
+import React from 'react'
 import BottomTab from './BottomTab';
 import { NavigationContainer } from '@react-navigation/native';
 import { Container } from 'native-base';
-import Context, { ContextObject } from '../store/context/context';
 import ChatScreen from '../screens/main/chat/ChatScreen';
+// import Context from '../store/context/context';
+// import ContextProvider from '../store/context/context';
+import { Provider } from 'react-redux';
+import { store } from '../store/redux/store';
 
 
 const ScreenNames = {
@@ -20,13 +23,13 @@ const Root = () => {
     <>
       <StatusBar style="auto" />
       <NavigationContainer>
-        <Context.Provider value={ContextObject}>
+        <Provider store={store}>
           <RootStack.Navigator initialRouteName={ScreenNames.BottomTab} screenOptions={{ headerShown: false }}>
             <RootStack.Screen name={ScreenNames.Splash} component={Container} />
             <RootStack.Screen name={ScreenNames.BottomTab} component={BottomTab} />
             <RootStack.Screen name={ScreenNames.Chatting} component={ChatScreen} />
           </RootStack.Navigator>
-        </Context.Provider>
+        </Provider>
       </NavigationContainer>
     </>
   )

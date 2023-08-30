@@ -1,10 +1,11 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import React from 'react'
+import React, { useContext } from 'react'
 import NotificationScreen from '../screens/main/NotificationScreen';
 import ChatStackScreen from '../screens/main/chat/ChatOverview';
 import { Image, useTheme } from 'native-base';
 import ChatOverview from '../screens/main/chat/ChatOverview';
 import FindBabySitterScreen from '../screens/main/FindBabySitterScreen';
+import { Context } from '../store/context/context';
 
 
 const TabNames = {
@@ -19,6 +20,8 @@ const BottomTab = () => {
 
   const mainColor = useTheme().colors.primary[600];
   const mutedColor = useTheme().colors.muted[500];
+
+  // const userDataRedux = useSelector();
 
   return (
     <Tab.Navigator screenOptions={{
