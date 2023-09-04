@@ -5,7 +5,7 @@ import ChatStackScreen from '../screens/main/chat/ChatOverview';
 import { Image, useTheme } from 'native-base';
 import ChatOverview from '../screens/main/chat/ChatOverview';
 import FindBabySitterScreen from '../screens/main/FindBabySitterScreen';
-import { Context } from '../store/context/context';
+import UserProfileScreen from '../screens/main/UserProfileScreen';
 
 
 const TabNames = {
@@ -28,7 +28,10 @@ const BottomTab = () => {
       headerShown: false,
       tabBarActiveTintColor: mainColor,
       tabBarStyle: {
-        height: 60,
+        height: 65,
+        backgroundColor: "white",
+        shadowColor: "transparent",
+        paddingVertical: 5
       },
       tabBarLabelStyle: {
         marginBottom: 6
@@ -79,7 +82,7 @@ const BottomTab = () => {
           ),
           tabBarLabel: "Thông tin"
         }}
-        component={NotificationScreen}
+        component={UserProfileScreen}  // check if user or babysitter
       />
 
       <Tab.Screen

@@ -1,38 +1,44 @@
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { StatusBar } from 'expo-status-bar';
 import React from 'react'
-import BottomTab from './BottomTab';
+import { StatusBar } from 'expo-status-bar';
 import { NavigationContainer } from '@react-navigation/native';
-import { Container } from 'native-base';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { RootState, useSelectorApp } from '../store/redux/store';
+
+import Auth from './Auth';
+import BottomTab from './BottomTab';
 import ChatScreen from '../screens/main/chat/ChatScreen';
-// import Context from '../store/context/context';
-// import ContextProvider from '../store/context/context';
-import { Provider } from 'react-redux';
-import { store } from '../store/redux/store';
+import { User } from '../types';
 
 
 const ScreenNames = {
-  Splash: "Splash",
+  Auth: "Auth",
   BottomTab: "BottomTab",
   Chatting: "Chatting"
 }
+
 const Root = () => {
   const RootStack = createNativeStackNavigator();
+
+  const user: User = useSelectorApp((state: RootState) => state.userSlice.user);
 
   return (
     <>
       <StatusBar style="auto" />
       <NavigationContainer>
-        <Provider store={store}>
-          <RootStack.Navigator initialRouteName={ScreenNames.BottomTab} screenOptions={{ headerShown: false }}>
-            <RootStack.Screen name={ScreenNames.Splash} component={Container} />
+        <RootStack.Navigator screenOptions={{ headerShown: false }}>
+          { !user &&
+            <RootStack.Screen name={ScreenNames.Auth} component={Auth} />
+          }
+
+          { user &&
             <RootStack.Screen name={ScreenNames.BottomTab} component={BottomTab} />
-            <RootStack.Screen name={ScreenNames.Chatting} component={ChatScreen} />
-          </RootStack.Navigator>
-        </Provider>
+          }
+
+          <RootStack.Screen name={ScreenNames.Chatting} component={ChatScreen} /* Not ChatOverview */ />
+        </RootStack.Navigator>
       </NavigationContainer>
     </>
-  )
+  );
 }
 
 export default Root;
