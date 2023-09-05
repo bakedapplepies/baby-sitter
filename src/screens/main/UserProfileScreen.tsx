@@ -15,9 +15,12 @@ import {
 } from 'native-base';
 import React from 'react'
 import { TouchableOpacity } from 'react-native';
+import { useSelectorApp } from '../../store/redux/store';
 
 
 const UserProfileScreen = () => {
+  const userSlice = useSelectorApp((state) => state.userSlice);
+
   return (
     <Center flex={1} bg="white" safeArea>
       <Text color="primary.600" fontSize={24} fontWeight={500} mb={4}>
@@ -25,7 +28,7 @@ const UserProfileScreen = () => {
       </Text>
       <Avatar source={require("../../../assets/Avatar.png")} size="xl" my={4} />
       <Text color="primary.600" fontSize={24} fontWeight={500}>
-        {"Paityn George"}
+        {!userSlice.user?.name}
       </Text>
       <HStack alignItems="center" space={1}>
         <Text color="muted.500">

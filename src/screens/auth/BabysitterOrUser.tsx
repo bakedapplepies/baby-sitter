@@ -19,7 +19,7 @@ const BabysitterOrUser = () => {
     <Center flex={1}>
       <ImageBackground source={require("../../../assets/baby-bg.png")} style={{
         width: screenW,
-        height: screenH,
+        height: screenH+30,
         justifyContent: "flex-end",
       }}
       >

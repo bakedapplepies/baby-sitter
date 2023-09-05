@@ -1,10 +1,11 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react'
+
 import SplashScreen from '../screens/auth/SplashScreen';
 import BabysitterOrUser from '../screens/auth/BabysitterOrUser';
-import { Container } from 'native-base';
 import SignIn from '../screens/auth/SignIn';
 import SignUp from '../screens/auth/SignUp';
+import SetUpAccount from '../screens/auth/SetUpAccount';
 
 
 const ScreenNames = {
@@ -26,7 +27,7 @@ const Auth = () => {
       <AuthStack.Screen name={ScreenNames.BabysitterOrUser} component={BabysitterOrUser} />
       <AuthStack.Screen name={ScreenNames.SignUp} component={SignUp} />
       <AuthStack.Screen name={ScreenNames.SignIn} component={SignIn} />
-      <AuthStack.Screen name={ScreenNames.SetUpAccount} component={Container} />
+      <AuthStack.Screen name={ScreenNames.SetUpAccount} component={SetUpAccount} />
     </AuthStack.Navigator>
   )
 }
