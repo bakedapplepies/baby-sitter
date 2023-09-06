@@ -12,13 +12,14 @@ import React from 'react'
 import { TouchableOpacity } from 'react-native';
 import { AuthStackParams } from '../../navigation/config';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
 
-type NavigationProps = NativeStackScreenProps<AuthStackParams>;
+type NavigationProps = NativeStackScreenProps<AuthStackParams, "SignIn">;
 
 const SignIn = () => {
   const navigation = useNavigation<NavigationProps["navigation"]>();
+  const route = useRoute<NavigationProps["route"]>();
 
   return (
     <Center flex={1} bg="white">
@@ -77,7 +78,16 @@ const SignIn = () => {
         <Text color="muted.800">
           Bạn chưa có tài khoản?
         </Text>
-        <TouchableOpacity onPress={() => navigation.navigate("SignUp")}>
+        <TouchableOpacity onPress={() => {
+          if (route.params.isBabysitter)
+          {
+            navigation.navigate("SignUp", {isBabysitter: true});
+          }
+          else
+          {
+            navigation.navigate("SignUp", {isBabysitter: false});
+          }
+        }}>
           <Text color="primary.600">
             Đăng ký
           </Text>

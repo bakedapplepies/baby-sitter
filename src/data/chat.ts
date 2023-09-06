@@ -9,13 +9,19 @@ export type MessageType = {
 let defaultUser: User = {
   id: "u0",
   name: "Paityn George",
-  pfp: require("../../assets/Avatar.png")
+  pfp: require("../../assets/Avatar.png"),
+  email: "paityngeorge@gmail.com",
+  password: "1234",
+  phoneNum: "1234"
 };
 
 let defaultBabysitter: Babysitter = {
   id: "b0",
   name: "Miracle Dorwart",
-  pfp: require("../../assets/Avatar.png")
+  pfp: require("../../assets/Avatar.png"),
+  email: "paityngeorge@gmail.com",
+  password: "1234",
+  phoneNum: "1234",
 };
 
 export const ChatData: MessageType[] = [

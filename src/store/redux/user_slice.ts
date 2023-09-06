@@ -1,12 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { User } from "../../types";
+import { Babysitter, Parent } from "../../types";
 
-type UserState = {
-  user: User | null;
+export type UserState = {
+  user: Parent | Babysitter | null;
+  isBabysitter: boolean;
 }
 
 const initialState: UserState = {
   user: null,
+  isBabysitter: false,
 }
 
 const userSlice = createSlice({
@@ -16,7 +18,7 @@ const userSlice = createSlice({
     setUser: (state, actions) => {
       if (!state.user)
       {
-        state.user = actions.payload.user;
+        state.user = actions.payload;
       }
     },
 
@@ -25,10 +27,20 @@ const userSlice = createSlice({
       {
         state.user = null;
       }
-    }
+    },
+
+    setBabySitterTrue: (state) => {
+      state.isBabysitter = true;
+    },
+    
+    setBabySitterFalse: (state) => {
+      state.isBabysitter = false;
+    },
   }
 });
 
 export const setUser = userSlice.actions.setUser;
 export const removeUser = userSlice.actions.removeUser;
+export const setBabySitterTrue = userSlice.actions.setBabySitterTrue;
+export const setBabySitterFalse = userSlice.actions.setBabySitterFalse;
 export const userReducer = userSlice.reducer;

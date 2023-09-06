@@ -14,7 +14,11 @@ export type BottomTabParams = {
 export type AuthStackParams = {
   Splash: undefined;
   BabysitterOrUser: undefined;
-  SignUp: undefined;
-  SignIn: undefined;
+  SignUp: {
+    isBabysitter: boolean;
+  };
+  SignIn: {
+    isBabysitter: boolean;
+  };
   SetUpAccount: undefined;
 }

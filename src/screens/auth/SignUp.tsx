@@ -1,20 +1,22 @@
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { Box, Button, Center, Checkbox, HStack, Image, Input, Text } from 'native-base'
+import { Button, Center, HStack, Image, Input, Text } from 'native-base'
 import React, { useState } from 'react'
 import { TouchableOpacity } from 'react-native'
-import { AuthStackParams } from '../../navigation/config';
-import { useDispatchApp } from '../../store/redux/store';
-import { setUser } from '../../store/redux/user_slice';
-import { User } from '../../types';
+import { AuthStackParams, RootStackParams } from '../../navigation/config';
+import { RootState, useDispatchApp, useSelectorApp } from '../../store/redux/store';
+import { UserState, setBabySitterFalse, setBabySitterTrue, setUser } from '../../store/redux/user_slice';
+import { Babysitter, Parent, User, createBabysitter, createParent } from '../../types';
 
 
-type NavigationProps = NativeStackScreenProps<AuthStackParams>;
+type NavigationProps = NativeStackScreenProps<AuthStackParams & RootStackParams, "SignUp">;
 
 export default function SignUp() {
   const navigation = useNavigation<NavigationProps["navigation"]>();
+  const route = useRoute<NavigationProps["route"]>();
 
   const dispatch = useDispatchApp();
+  const selector: UserState = useSelectorApp((state: RootState) => state.userSlice);
   const [name, setName] = useState<string>("");
   const [phoneNum, setPhoneNum] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -24,7 +26,7 @@ export default function SignUp() {
     if (!name || !phoneNum || !password) return;
     if (password !== password2) return;
 
-    const newUser: User = {
+    const tempUser: User = {
       id: "u0",
       name,
       phoneNum,
@@ -33,9 +35,21 @@ export default function SignUp() {
       password,
     }
 
-    dispatch(setUser(newUser));
-    
-    // navigation.navigate("BottomTab");
+    if (route.params.isBabysitter)
+    {
+      const newBabysitter: Babysitter = createBabysitter(tempUser);
+  
+      dispatch(setUser(newBabysitter));
+      dispatch(setBabySitterTrue());
+    }
+    else
+    {
+      const newParent: Parent = createParent(tempUser);
+      
+      dispatch(setUser(newParent));
+      dispatch(setBabySitterFalse());
+    }
+
   }
 
   return (
@@ -109,7 +123,16 @@ export default function SignUp() {
         <Text color="muted.800">
           Bạn đã có tài khoản?
         </Text>
-        <TouchableOpacity onPress={() => navigation.navigate("SignIn")}>
+        <TouchableOpacity onPress={() => {
+          if (route.params.isBabysitter)
+          {
+            navigation.navigate("SignIn", {isBabysitter: true});
+          }
+          else
+          {
+            navigation.navigate("SignIn", {isBabysitter: false});
+          }
+        }}>
           <Text color="primary.600">
             Đăng nhập
           </Text>

@@ -6,6 +6,8 @@ import { Image, useTheme } from 'native-base';
 import ChatOverview from '../screens/main/chat/ChatOverview';
 import FindBabySitterScreen from '../screens/main/FindBabySitterScreen';
 import UserProfileScreen from '../screens/main/UserProfileScreen';
+import { useSelectorApp } from '../store/redux/store';
+import { Babysitter, Parent } from '../types';
 
 
 const TabNames = {
@@ -21,7 +23,7 @@ const BottomTab = () => {
   const mainColor = useTheme().colors.primary[600];
   const mutedColor = useTheme().colors.muted[500];
 
-  // const userDataRedux = useSelector();
+  const isBabysitter: boolean = useSelectorApp((state) => state.userSlice.isBabysitter);
 
   return (
     <Tab.Navigator screenOptions={{
@@ -68,7 +70,7 @@ const BottomTab = () => {
         }}
         component={ChatOverview}
       />
-      
+
       <Tab.Screen
         name={TabNames.Info}
         options={{
