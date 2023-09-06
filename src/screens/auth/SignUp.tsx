@@ -115,7 +115,7 @@ export default function SignUp() {
         />
 
         <Button borderRadius={8} w={365} mt={10} onPress={checkCredentials}>
-          Đăng nhập
+          Đăng ký
         </Button>
       </Center>
 

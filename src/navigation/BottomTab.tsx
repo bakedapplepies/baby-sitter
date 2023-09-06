@@ -1,13 +1,11 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import React, { useContext } from 'react'
+import React from 'react'
 import NotificationScreen from '../screens/main/NotificationScreen';
-import ChatStackScreen from '../screens/main/chat/ChatOverview';
 import { Image, useTheme } from 'native-base';
 import ChatOverview from '../screens/main/chat/ChatOverview';
 import FindBabySitterScreen from '../screens/main/FindBabySitterScreen';
-import UserProfileScreen from '../screens/main/UserProfileScreen';
 import { useSelectorApp } from '../store/redux/store';
-import { Babysitter, Parent } from '../types';
+import UserProfile from '../screens/main/profile/UserProfile';
 
 
 const TabNames = {
@@ -84,7 +82,7 @@ const BottomTab = () => {
           ),
           tabBarLabel: "Thông tin"
         }}
-        component={UserProfileScreen}  // check if user or babysitter
+        component={UserProfile}  // check if user or babysitter
       />
 
       <Tab.Screen
