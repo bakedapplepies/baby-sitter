@@ -3,7 +3,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { Button, Center, HStack, Image, Input, Text } from 'native-base'
 import React, { useState } from 'react'
 import { TouchableOpacity } from 'react-native'
-import { AuthStackParams, RootStackParams } from '../../navigation/config';
+import { AuthStackParams, RootStackParams } from '../../navigation/stack_config';
 import { RootState, useDispatchApp, useSelectorApp } from '../../store/redux/store';
 import { UserState, setBabySitterFalse, setBabySitterTrue, setUser } from '../../store/redux/user_slice';
 import { Babysitter, Parent, User, createBabysitter, createParent } from '../../types';
@@ -17,16 +17,17 @@ export default function SignUp() {
 
   const dispatch = useDispatchApp();
   const selector: UserState = useSelectorApp((state: RootState) => state.userSlice);
+
   const [name, setName] = useState<string>("");
   const [phoneNum, setPhoneNum] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [password2, setPassword2] = useState<string>("");
 
-  const checkCredentials = () => {
+  const OnSignUp = () => {
     if (!name || !phoneNum || !password) return;
     if (password !== password2) return;
 
-    const tempUser: User = {
+    const newUser: User = {
       id: "u0",
       name,
       phoneNum,
@@ -37,14 +38,14 @@ export default function SignUp() {
 
     if (route.params.isBabysitter)
     {
-      const newBabysitter: Babysitter = createBabysitter(tempUser);
+      const newBabysitter: Babysitter = createBabysitter(newUser);
   
       dispatch(setUser(newBabysitter));
       dispatch(setBabySitterTrue());
     }
     else
     {
-      const newParent: Parent = createParent(tempUser);
+      const newParent: Parent = createParent(newUser);
       
       dispatch(setUser(newParent));
       dispatch(setBabySitterFalse());
@@ -74,6 +75,7 @@ export default function SignUp() {
           onChangeText={(text) => {
             setName(text);
           }}
+          value={name}
         />
         <Input
           placeholder="Điện thoại"
@@ -86,6 +88,8 @@ export default function SignUp() {
           onChangeText={(text) => {
             setPhoneNum(text);
           }}
+          value={phoneNum}
+        keyboardType="numeric"
         />
         <Input
           placeholder="Mật khẩu"
@@ -98,6 +102,7 @@ export default function SignUp() {
           onChangeText={(text) => {
             setPassword(text);
           }}
+          value={password}
           type="password"
         />
         <Input
@@ -111,10 +116,11 @@ export default function SignUp() {
           onChangeText={(text) => {
             setPassword2(text);
           }}
+          value={password2}
           type="password"
         />
 
-        <Button borderRadius={8} w={365} mt={10} onPress={checkCredentials}>
+        <Button borderRadius={8} w={365} mt={10} onPress={OnSignUp}>
           Đăng ký
         </Button>
       </Center>

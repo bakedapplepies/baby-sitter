@@ -15,6 +15,7 @@
     "@reduxjs/toolkit": "^1.9.5",
     "expo": "~49.0.5",
     "expo-status-bar": "~1.6.0",
+    "firebase": "^10.3.1",
     "iconsax-react-native": "^0.0.8",
     "native-base": "^3.4.28",
     "react": "18.2.0",

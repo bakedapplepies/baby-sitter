@@ -2,7 +2,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack/lib/types
 import { Box, Button, Center, HStack, Text, VStack, useTheme } from 'native-base';
 import React from 'react'
 import { ImageBackground, TouchableOpacity, useWindowDimensions } from 'react-native';
-import { AuthStackParams } from '../../navigation/config';
+import { AuthStackParams } from '../../navigation/stack_config';
 import { useNavigation } from '@react-navigation/native';
 import { ArrowRight2 } from 'iconsax-react-native';
 

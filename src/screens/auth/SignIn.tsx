@@ -8,11 +8,13 @@ import {
   Input,
   Text
 } from 'native-base';
-import React from 'react'
+import React, { useState } from 'react'
 import { TouchableOpacity } from 'react-native';
-import { AuthStackParams } from '../../navigation/config';
+import { AuthStackParams } from '../../navigation/stack_config';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useNavigation, useRoute } from '@react-navigation/native';
+import { firebaseDB } from '../../firebase';
+import { doc, getDoc } from 'firebase/firestore';
 
 
 type NavigationProps = NativeStackScreenProps<AuthStackParams, "SignIn">;
@@ -20,6 +22,21 @@ type NavigationProps = NativeStackScreenProps<AuthStackParams, "SignIn">;
 const SignIn = () => {
   const navigation = useNavigation<NavigationProps["navigation"]>();
   const route = useRoute<NavigationProps["route"]>();
+
+  const [phoneNum, setPhoneNum] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+
+  const OnSignIn = async () => {
+    const docRef = doc(firebaseDB, "users", phoneNum);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      console.log("Document data:", docSnap.data());
+    } else {
+      // docSnap.data() will be undefined in this case
+      console.log("No such document!");
+    }
+  }
 
   return (
     <Center flex={1} bg="white">
@@ -40,6 +57,9 @@ const SignIn = () => {
           backgroundColor="muted.100"
           borderColor="muted.100"
           fontSize={14}
+          keyboardType="numeric"
+          onChangeText={setPhoneNum}
+          value={phoneNum}
         />
         <Input
           placeholder="Mật khẩu"
@@ -50,6 +70,8 @@ const SignIn = () => {
           borderColor="muted.100"
           fontSize={14}
           type="password"
+          onChangeText={setPassword}
+          value={password}
         />
 
         <HStack alignItems="flex-end" justifyContent="flex-start" w={365}>
@@ -69,7 +91,7 @@ const SignIn = () => {
           </HStack>
         </HStack>
 
-        <Button borderRadius={8} w={365} mt={10}>
+        <Button borderRadius={8} w={365} mt={10} onPress={OnSignIn}>
           Đăng nhập
         </Button>
       </Center>
@@ -79,13 +101,11 @@ const SignIn = () => {
           Bạn chưa có tài khoản?
         </Text>
         <TouchableOpacity onPress={() => {
-          if (route.params.isBabysitter)
-          {
-            navigation.navigate("SignUp", {isBabysitter: true});
+          if (route.params.isBabysitter) {
+            navigation.navigate("SignUp", { isBabysitter: true });
           }
-          else
-          {
-            navigation.navigate("SignUp", {isBabysitter: false});
+          else {
+            navigation.navigate("SignUp", { isBabysitter: false });
           }
         }}>
           <Text color="primary.600">

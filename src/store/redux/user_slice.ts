@@ -1,5 +1,5 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { Babysitter, Parent } from "../../types";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { Babysitter, Parent, User } from "../../types";
 
 export type UserState = {
   user: Parent | Babysitter | null;
@@ -15,7 +15,7 @@ const userSlice = createSlice({
   name: "userSlice",
   initialState: initialState,
   reducers: {
-    setUser: (state, actions) => {
+    setUser: (state, actions: PayloadAction<User>) => {
       if (!state.user)
       {
         state.user = actions.payload;
