@@ -15,6 +15,9 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { firebaseDB } from '../../firebase';
 import { doc, getDoc } from 'firebase/firestore';
+import { useDispatchApp } from '../../store/redux/store';
+import { setUser } from '../../store/redux/user_slice';
+import { User } from '../../types';
 
 
 type NavigationProps = NativeStackScreenProps<AuthStackParams, "SignIn">;
@@ -23,18 +26,43 @@ const SignIn = () => {
   const navigation = useNavigation<NavigationProps["navigation"]>();
   const route = useRoute<NavigationProps["route"]>();
 
+  const dispatch = useDispatchApp();
+
   const [phoneNum, setPhoneNum] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
   const OnSignIn = async () => {
-    const docRef = doc(firebaseDB, "users", phoneNum);
-    const docSnap = await getDoc(docRef);
+    try {  // in case API is unable to access internet
+      const fb_document = doc(firebaseDB, "users", phoneNum);
+      const docSnap = await getDoc(fb_document);
+      
+      if (docSnap.exists()) {
+        const userData = docSnap.data();
+        if (userData?.password === password)
+        {
+          const user: User = {
+            id: phoneNum,
+            email: null,
+            name: userData?.name,
+            password,
+            pfp: null,  // for now
+            phoneNum
+          }
 
-    if (docSnap.exists()) {
-      console.log("Document data:", docSnap.data());
-    } else {
-      // docSnap.data() will be undefined in this case
-      console.log("No such document!");
+          dispatch(setUser(user));
+        }
+        else  // password doesn't match
+        {
+          console.log("Wrong password.");
+        }
+      } else {
+        // docSnap.data() will be undefined in this case
+        console.log("Phone number not found.");
+      }
+    } catch (err) {
+      console.log(err);
+    } finally {
+      // to set loading animation to false or smth
     }
   }
 

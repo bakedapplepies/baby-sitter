@@ -4,9 +4,11 @@ import { Button, Center, HStack, Image, Input, Text } from 'native-base'
 import React, { useState } from 'react'
 import { TouchableOpacity } from 'react-native'
 import { AuthStackParams, RootStackParams } from '../../navigation/stack_config';
-import { RootState, useDispatchApp, useSelectorApp } from '../../store/redux/store';
-import { UserState, setBabySitterFalse, setBabySitterTrue, setUser } from '../../store/redux/user_slice';
+import { useDispatchApp } from '../../store/redux/store';
+import { setBabySitterFalse, setBabySitterTrue, setUser } from '../../store/redux/user_slice';
 import { Babysitter, Parent, User, createBabysitter, createParent } from '../../types';
+import { doc, setDoc } from 'firebase/firestore';
+import { firebaseDB } from '../../firebase';
 
 
 type NavigationProps = NativeStackScreenProps<AuthStackParams & RootStackParams, "SignUp">;
@@ -16,14 +18,13 @@ export default function SignUp() {
   const route = useRoute<NavigationProps["route"]>();
 
   const dispatch = useDispatchApp();
-  const selector: UserState = useSelectorApp((state: RootState) => state.userSlice);
 
   const [name, setName] = useState<string>("");
   const [phoneNum, setPhoneNum] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [password2, setPassword2] = useState<string>("");
 
-  const OnSignUp = () => {
+  const OnSignUp = async () => {
     if (!name || !phoneNum || !password) return;
     if (password !== password2) return;
 
@@ -36,21 +37,26 @@ export default function SignUp() {
       password,
     }
 
-    if (route.params.isBabysitter)
-    {
+    if (route.params.isBabysitter) {
       const newBabysitter: Babysitter = createBabysitter(newUser);
-  
+
       dispatch(setUser(newBabysitter));
       dispatch(setBabySitterTrue());
     }
-    else
-    {
+    else {
       const newParent: Parent = createParent(newUser);
-      
+
       dispatch(setUser(newParent));
       dispatch(setBabySitterFalse());
     }
 
+    // upload user info to firestore
+    const newUserDoc = doc(firebaseDB, "users", phoneNum);
+    await setDoc(newUserDoc, {
+      phoneNum,
+      password,
+      name
+    });
   }
 
   return (
@@ -89,7 +95,7 @@ export default function SignUp() {
             setPhoneNum(text);
           }}
           value={phoneNum}
-        keyboardType="numeric"
+          keyboardType="numeric"
         />
         <Input
           placeholder="Mật khẩu"
@@ -130,13 +136,11 @@ export default function SignUp() {
           Bạn đã có tài khoản?
         </Text>
         <TouchableOpacity onPress={() => {
-          if (route.params.isBabysitter)
-          {
-            navigation.navigate("SignIn", {isBabysitter: true});
+          if (route.params.isBabysitter) {
+            navigation.navigate("SignIn", { isBabysitter: true });
           }
-          else
-          {
-            navigation.navigate("SignIn", {isBabysitter: false});
+          else {
+            navigation.navigate("SignIn", { isBabysitter: false });
           }
         }}>
           <Text color="primary.600">
